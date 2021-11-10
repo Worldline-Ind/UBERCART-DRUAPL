@@ -209,7 +209,7 @@ class WorldlineController extends ControllerBase
                             drupal_set_message($this->t($msg, []), 'error');
                             $order->setStatusId('pending')->save();
                             uc_order_comment_save($order_id, 0, $this->t("$msg @merchant transaction id  - " . $merchantTxnRefNumber), 'admin');
-                            return $this->redirect('uc_cart.checkout');
+                            return $this->redirect('uc_cart.cart');
                         }
                     }
                 }

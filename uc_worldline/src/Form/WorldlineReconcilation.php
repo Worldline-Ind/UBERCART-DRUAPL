@@ -41,6 +41,7 @@ class WorldlineReconcilation extends FormBase
 			'#description' => $this->t('From date'),
 			'#default_value' => '',
 			'#size' => 20,
+			'#max' => $strCurrentDate
 		);
 		$form['to_date'] = array(
 			'#type' => 'date',
@@ -164,10 +165,10 @@ class WorldlineReconcilation extends FormBase
 				uc_order_comment_save($order_id, $row->uid, $msg['message'], 'admin');
 				uc_order_comment_save($order_id, $row->uid, $msg['message'], 'order', 'processing', FALSE);
 				array_push($successFullOrdersIds, $success_ids);
-			} else if ($status_code == "0397" || $status_code == "0399" || $status_code == "0396" || $status_code == "0392") {
+			} else {
 				$success_ids = $order_id;
 				$order = Order::load($order_id);
-				$order->setStatusId('cancelled')->save();
+				$order->setStatusId('canceled')->save();
 				$msg = array(
 					'success' => TRUE,
 					'message' => t(
@@ -184,8 +185,6 @@ class WorldlineReconcilation extends FormBase
 				uc_order_comment_save($order_id, $row->uid, $msg['message'], 'admin');
 				uc_order_comment_save($order_id, $row->uid, $msg['message'], 'order', 'cancelled', FALSE);
 				array_push($successFullOrdersIds, $success_ids);
-			} else {
-				null;
 			}
 		}
 
